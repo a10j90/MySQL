@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06 - MySQL 函數</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">06 - MySQL 函數</h1>
+    <hr />
+
+
+
+    <h2 class="center">6.1 - MySQL 函數簡介</h2>
+    <span>MySQL 提供大量且豐富的函數，在進行資料庫管理、資料查詢和操作時將經常使用到各種函數。</span><br />
+    <hr />
+
+
+
+    <h2 class="center">6.2 - 數學函數</h2>
+
+
+    <span class="greenb">絕對值函數</span><span class="red"> abs(x)</span><br />
+    <br />
+
+    <span>求2、-3.3和-33的絕對值</span><br />
+    <span class="bbwf">select abs(2), abs(-3.3), abs(-33);</span><br />
+    <br /><br />
+
+
+    <span class="greenb">傳回圓周率的函數</span><span class="red"> pi()</span><br />
+    <br />
+
+    <span>傳回圓周率值</span><br />
+    <span class="bbwf">select pi();</span><br />
+    <span>預設顯示小數數位為6位</span><br />
+    <br /><br />
+
+
+    <span class="greenb">平方根函數</span><span class="red"> sqrt(x)</span><br />
+    <br />
+
+    <span>求9、40和-49的二次平方根</span><br />
+    <span class="bbwf">select sqrt(9), sqrt(40), sqrt(-49);</span><br />
+    <span>負數沒有平方根</span><br />
+    <br /><br />
+
+
+    <span class="greenb">求餘函數</span><span class="red"> mod(x,y)</span><br />
+    <br />
+
+    <span>求 31除8 、 234除10 和 45.5除6 的餘數</span><br />
+    <span class="bbwf">select mod(31,8), mod(234,10), mod(45.5,6);</span><br />
+    <br /><br />
+
+
+    <span class="greenb">取得整數的函數</span><span class="red"> ceil(x)</span> 、<span class="red"> ceiling(x)</span> 和<span class="red"> floor(x)</span><br />
+    <br />
+
+    <span>求 -3.35 和 3.35 的最小整數</span><br />
+    <span class="bbwf">select ceil(-3.35), ceiling(3.35);</span><br />
+    <span>ceil(x) 和 ceiling(x) 的意義相同，傳回不小於 x 的最小整數值，傳回值轉化為 bigint</span><br />
+    <br />
+
+    <span>求 -3.35 和 3.35 的最大整數</span><br />
+    <span class="bbwf">select floor(-3.35), floor(3.35);</span><br />
+    <span>floor(x) 傳回不大於 x 的最大整數值，傳回值轉化為 bigint</span><br />
+    <br /><br />
+
+
+    <span class="greenb">取得亂數的函數</span><span class="red"> rand()</span> 和<span class="red"> rand(x)</span><br />
+    <br />
+
+    <span>使用 rand() 產生亂數</span><br />
+    <span class="bbwf">select rand(), rand(), rand();</span><br />
+    <br />
+
+    <span>使用 rand(x) 產生亂數</span><br />
+    <span class="bbwf">select rand(10), rand(10), rand(11);</span><br />
+    <br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>rand() 每次產生的亂數是不同的</span><br />
+        <span>rand(x) 的 x 為種子值，用來產生重複序列</span><br />
+        <span>傳回值範圍皆介於 0 到 1 之間</span>
+    </p>
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">6.3 - MySQL 常用圖形管理工具</h2>
+    <hr />
+
+
+
+    <h2 class="center">6.4 - Linux 平台下安裝與設定 MySQL 8.0</h2>
+    <hr />
+
+
+
+    <h2 class="center">6.5 - 專家解惑</h2>
+    <hr />
+
+
+
+    <h2 class="center">6.6 - 經典習題</h2>
+    <hr />
+
+
+
+</body>
+
+</html>

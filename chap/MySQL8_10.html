@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 - 預存程序和函數</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">10 - 預存程序和函數</h1>
+    <hr />
+
+
+    <h2 class="center">10.1 - 建立預存程序和函數</h2>
+
+
+    <span class="greenb">預存程序</span><br />
+    <br />
+
+    <span>建立檢視 fruits 表的預存程序</span><br />
+
+    <span class="bbwf">delimiter //           </span><br />
+    <span class="bbwf">                       </span><br />
+    <span class="bbwf">create procedure Proc()</span><br />
+    <span class="bbwf">begin                  </span><br />
+    <span class="bbwf">select * from fruits;  </span><br />
+    <span class="bbwf">end //                </span><br />
+    <span class="bbwf">                       </span><br />
+    <span class="bbwf">delimiter ;            </span><br />
+
+    <span>預存程序沒有參數，依舊需要加上 <span class="red">()</span></span>
+    <br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        
+        <span><span class="red">delimiter //</span> 敘述是將 MySQL 的結束符號設為 <span class="red">//</span>。</span><br />
+
+        <span>MySQL 的預設結束符號為 <span class="red">;</span> ，為了避免和預存程序中SQL敘述的結束符號相衝突，需改變結束符號，並以 <span class="red">end //</span> 結束預存程序。</span><br />
+        
+        <span>預存程序定義完畢後，再使用  <span class="red">delimiter ; </span>恢復預設結束符號。</span><br />
+    </p>
+
+
+
+    <span>建立取得 fruits 表記錄筆數的預存程序</span><br />
+
+    <span class="bbwf">delimiter //                              </span><br />
+    <span class="bbwf">                                          </span><br />
+    <span class="bbwf">create procedure CountProc(out param1 int)</span><br />
+    <span class="bbwf">begin                                     </span><br />
+    <span class="bbwf">select count(*) into param1 from fruits;  </span><br />
+    <span class="bbwf">end //                                    </span><br />
+    <span class="bbwf">                                          </span><br />
+    <span class="bbwf">delimiter ;                               </span><br />
+    <br />
+
+    <span class="greenb">儲存函數</span><br />
+    <br />
+
+    <span>建立查詢 suppliers 表的儲存函數</span><br />
+
+    <span class="bbwf">delimiter //                                                 </span><br />
+    <span class="bbwf">                                                             </span><br />
+    <span class="bbwf">create function NameByZip()                                  </span><br />
+    <span class="bbwf">returns char(50)                                             </span><br />
+    <span class="bbwf">begin                                                        </span><br />
+    <span class="bbwf">return (select s_name from suppliers where s_call = '48075');</span><br />
+    <span class="bbwf">end //                                                       </span><br />
+    <span class="bbwf">                                                             </span><br />
+    <span class="bbwf">delimiter ;                                                  </span><br />
+
+    
+    
+
+        
+    </span><br />
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>建立預存程序或儲存函數，若 <span class="red">begin</span> 和 <span class="red">end</span> 中僅有一行 SQL敘述，可略，即</span><br />
+        <span>建立預存程序，可寫成</span><br />
+        <span class="bbwf">create procedure CountProc(out param1 int)</span><br />
+        <span class="bbwf">select count(*) into param1 from fruits;  </span><br />
+        <span class="bbwf">//                                        </span><br />
+        <span>建立儲存函數，可寫成</span><br />
+        <span class="bbwf">create function NameByZip()                                  </span><br />
+        <span class="bbwf">returns char(50)                                             </span><br />
+        <span class="bbwf">return (select s_name from suppliers where s_call = '48075');</span><br />
+        <span class="bbwf">//                                                           </span><br />
+    </p>
+
+    <p class="grayb">
+        <span class="bbwf">注意</span><br />
+        <span>建立儲存函數，若出現如下錯誤</span><br />
+        <span class="rbwf">ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)</span><br />
+        <span>表示 <span class="red">log_bin_trust_function_creators</span> 被設為 OFF，代表必須為 function 指定一個參數</span><br />
+        <span>可透過 <span class="red">show variables like 'log_bin_trust_function_creators';</span> 檢視</span><br />
+        <span>有2種方式可改變全域變數值</span><br />
+        <span>(1) 臨時生效：重啟 MySQL 後恢復，指令 <span class="red">set global log_bin_trust_function_creators = 1;</span></span><br />
+        <span>(1) 持久生效：指令 <span class="red">set persist log_bin_trust_function_creators = 1;</span></span><br />
+    </p>
+
+
+    
+    
+    <br />
+
+    <span class="greenb">變數</span><br />
+    <span>變數可以在 <span class="red">副程式</span> 中宣告並使用</span>
+    <br />
+    
+
+    <span class="bbwf">delimiter //                  </span><br />
+    <span class="bbwf">                              </span><br />
+    <span class="bbwf">create procedure Proc()       </span><br />
+    <span class="bbwf">begin                         </span><br />
+    <span class="bbwf">declare fruitname char(50);   </span><br />
+    <span class="bbwf">select f_name into fruitname  </span><br />
+    <span class="bbwf">from fruits where f_id = 'a1';</span><br />
+    <span class="bbwf">select fruitname;             </span><br />
+    <span class="bbwf">end //                        </span><br />
+    <span class="bbwf">delimiter ;                   </span><br />
+    <br />
+
+
+
+
+    <span class="greenb">定義條件和處理常式</span><br />
+    
+    <span>定義 <span class="red">ERROR 1148(42000)</span> 錯誤，名稱為 command_not_allowed 。有兩種方式</span><br />
+    <span>(1) 使用 <span class="red">sqlstate_value</span></span><br />
+    <span class="bbwf">declare command_not_allowed condition for sqlstate '42000'</span><br />
+    <span>(2) 使用 <span class="red">mysql_error_code</span></span><br />
+    <span class="bbwf">declare command_not_allowed condition for 1148</span><br />
+    <br />
+
+
+
+    <span class="greenb">游標</span><br />
+    <span>在<span class="red">預存程序</span>或<span class="red">儲存函數</span>中，若查詢後回傳資料量非常大，可使用游標來逐筆讀取查詢的記錄</span><br />
+
+    <br />
+
+
+
+
+    <hr />
+
+
+
+    <h2 class="center">10.2 - 呼叫預存程序和函數</h2>
+
+
+    <span class="greenb">呼叫預存程序</span><br />
+    <br />
+
+
+    <span>建立預存程序</span><br />
+
+    <span class="bbwf">delimiter //                                          </span><br />
+    <span class="bbwf">                                                      </span><br />
+    <span class="bbwf">create procedure CountProc1(in sid int, out num int)  </span><br />
+    <span class="bbwf">select count(*) into num from fruits where s_id = sid;</span><br />
+    <span class="bbwf">//                                                    </span><br />
+    <span class="bbwf">                                                      </span><br />
+    <span class="bbwf">delimiter ;                                           </span><br />
+    <br />
+
+    <span>呼叫預存程序</span><br />
+    <span class="bbwf">call CountProc1(101, @num);</span><br />
+    <br />
+
+    <span>檢視回傳結果</span><br />
+    <span class="bbwf">select @num;</span><br />
+    <br />
+
+
+    <span class="greenb">呼叫預存程序</span><br />
+    <br />
+
+    <span>建立儲存函數</span><br />
+
+    <span class="bbwf">delimiter //                                          </span><br />
+    <span class="bbwf">                                                      </span><br />
+    <span class="bbwf">create function CountFunc2(sid int)                   </span><br />
+    <span class="bbwf">returns int                                           </span><br />
+    <span class="bbwf">return (select count(*) from fruits where s_id = sid);</span><br />
+    <span class="bbwf">//                                                    </span><br />
+    <span class="bbwf">                                                      </span><br />
+    <span class="bbwf">delimiter ;                                           </span><br />
+    <br />
+
+    <span>呼叫儲存函數</span><br />
+    <span class="bbwf">select CountFunc2(101);</span><br />
+    <br />
+
+
+    <hr />
+
+
+
+    <h2 class="center">10.3 - 檢視預存程序和函數</h2>
+
+    <span>使用 show status 檢視狀態</span><br />
+    <span class="bbwf">show procedure status like 'C%' \G;</span><br />
+    <span>取得資料庫中所有名稱以字母'C'開頭的預存程序</span><br />
+    <br />
+
+    <span>使用 show create 檢視定義</span><br />
+    <span class="bbwf">show create function test_db.CountFunc2 \G;</span><br />
+    <span>取得資料庫 test_db 中名稱為 CountFunc2 的預存程序</span><br />
+    <br />
+
+    <span>使用 information_schema.Routines 檢視資訊</span><br />
+    <span class="bbwf">select * from information_schema.Routines</span><br />
+    <span class="bbwf">where ROUTINE_NAME = 'CountFunc2';</span><br />
+    <span>從 Routines 表中查詢名為 CountFunc2 的資訊</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">10.4 - 修改預存程序和函數</h2>
+
+
+    <hr />
+
+
+
+    <h2 class="center">10.5 - 刪除預存程序和函數</h2>
+
+    <span>刪除預存程序</span><br />
+    <span class="bbwf">drop procedure if exists CountProc1;</span><br />
+    <br />
+
+    <span>刪除儲存函數</span><br />
+    <span class="bbwf">drop function if exists CountFunc2;</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">10.6 - MySQL 8.0 的新特性 — 全域變數的持久化</h2>
+    
+
+    <span>透過 <span class="red">show variables like '%max_connections%';</span> 檢視伺服器最大連接數</span><br />
+    <br />
+
+    <span>有2種方式可改變全域變數值</span><br />
+    <span>(1) 臨時生效：重啟 MySQL 後恢復，指令 <span class="red">set global max_connections = 1000;</span></span><br />
+    <span>(2) 持久生效：指令 <span class="red">set persist max_connections = 1000;</span></span><br />
+
+
+    <hr />
+
+
+    <h2 class="center">10.7 - 綜合案例 — 建立預存程序和函數</h2>
+
+
+
+
+    <h2 class="center">10.8 -  專家解惑</h2>
+    <hr />
+
+
+
+    <h2 class="center">10.9 -  經典習題</h2>
+    <hr />
+
+
+
+</body>
+
+</html>

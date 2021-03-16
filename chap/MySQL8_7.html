@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 - 基本查詢</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">07 - 基本查詢</h1>
+    <hr />
+
+
+
+
+
+    <h2 class="center">7.1 - 基本查詢敘述</h2>
+
+    
+    <span>本章共需建立 5 個資料資</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">fruits</span> 資料表</span><br />
+    <span class="bbwf">create table fruits                     </span><br />
+    <span class="bbwf">(                                       </span><br />
+    &nbsp&nbsp<span class="bbwf">f_id    char(10)     not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">s_id    int          not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">f_name  char(255)    not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">f_price decimal(8,2) not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(f_id)             </span><br />
+    <span class="bbwf">);                                      </span><br />
+    <br />
+
+    <span>fruits 資料表插入資料</span><br />
+    <span class="bbwf">insert into fruits (f_id, s_id, f_name, f_price)</span><br />
+    <span class="bbwf">values('a1', 101, 'apple', 5.2),</span><br />
+    <span class="bbwf">('b1', 101, 'blackberry', 10.2),</span><br />
+    <span class="bbwf">('bs1', 102, 'orange', 11.2),</span><br />
+    <span class="bbwf">('bs2', 105, 'melon', 8.2),</span><br />
+    <span class="bbwf">('t1', 102, 'banana', 10.3),</span><br />
+    <span class="bbwf">('t2', 102, 'grape', 5.3),</span><br />
+    <span class="bbwf">('o2', 103, 'coconut', 9.2),</span><br />
+    <span class="bbwf">('c0', 101, 'cherry', 3.2),</span><br />
+    <span class="bbwf">('a2', 103, 'apricot', 2.2),</span><br />
+    <span class="bbwf">('l2', 104, 'lemon', 6.4),</span><br />
+    <span class="bbwf">('b2', 104, 'berry', 7.6),</span><br />
+    <span class="bbwf">('m1', 106, 'mango', 15.7),</span><br />
+    <span class="bbwf">('m2', 105, 'xbabay', 2.6),</span><br />
+    <span class="bbwf">('t4', 107, 'xbanana', 3.6),</span><br />
+    <span class="bbwf">('m3', 105, 'xxtt', 11.6),</span><br />
+    <span class="bbwf">('b5', 107, 'xxxx', 3.6);</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">customers</span> 資料表</span><br />
+    <span class="bbwf">create table customers                               </span><br />
+    <span class="bbwf">(                                                    </span><br />
+    &nbsp&nbsp<span class="bbwf">c_id      int      not null auto_increment,</span><br />
+    &nbsp&nbsp<span class="bbwf">c_name    char(50) not null,               </span><br />
+    &nbsp&nbsp<span class="bbwf">c_address char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">c_city    char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">c_zip     char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">c_contact char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">c_email   char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(c_id)                          </span><br />
+    <span class="bbwf">);                                                   </span><br />
+    <br />
+
+    <span>customers 資料表插入資料</span><br />
+    <span class="bbwf">insert into customers (c_id, c_name, c_address, c_city, c_zip, c_contact, c_email)</span><br />
+    <span class="bbwf">values(10001, 'RedHook', '200 Street', 'Tianjin', '300000', 'LiMing', 'LMing@163.com'),</span><br />
+    <span class="bbwf">(10002, 'Stars', '333 Fromage Lane', 'Dalian', '116000', 'Zhangbo', 'Jerry@hotmail.com'),</span><br />
+    <span class="bbwf">(10003, 'Netbhood', '1 Sunny Place', 'Qingdao', '266000', 'LuoCong', NULL),</span><br />
+    <span class="bbwf">(10004, 'JOTO', '829 Riverside Drive', 'Haikou', '570000', 'YangShan', 'sam@hotmail.com');</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">orderitems</span> 資料表</span><br />
+    <span class="bbwf">create table orderitems                    </span><br />
+    <span class="bbwf">(                                          </span><br />
+    &nbsp&nbsp<span class="bbwf">o_num      int          not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">o_item     int          not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">f_id       char(10)     not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">quantity   int          not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">item_price decimal(8,2) not null,</span><br />    
+    &nbsp&nbsp<span class="bbwf">primary key(o_num, o_item)       </span><br />
+    <span class="bbwf">);                                         </span><br />
+    <br />
+
+    <span>orderitems 資料表插入資料</span><br />
+    <span class="bbwf">insert into orderitems (o_num, o_item, f_id, quantity, item_price)</span><br />
+    <span class="bbwf">values(30001, 1, 'a1', 10, 5.2),</span><br />
+    <span class="bbwf">(30001, 2, 'b2', 3, 7.6),</span><br />
+    <span class="bbwf">(30001, 3, 'bs1', 5, 11.2),</span><br />
+    <span class="bbwf">(30001, 4, 'bs2', 15, 9.2),</span><br />
+    <span class="bbwf">(30002, 1, 'b3', 2, 20.0),</span><br />
+    <span class="bbwf">(30003, 1, 'c0', 100, 10),</span><br />
+    <span class="bbwf">(30004, 1, 'o2', 50, 2.50),</span><br />
+    <span class="bbwf">(30005, 1, 'c0', 5, 10),</span><br />
+    <span class="bbwf">(30005, 2, 'b1', 10, 8.99),</span><br />
+    <span class="bbwf">(30005, 3, 'a2', 10, 2.2),</span><br />
+    <span class="bbwf">(30005, 4, 'm1', 5, 14.99);</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">suppliers</span> 資料表</span><br />
+    <span class="bbwf">create table suppliers                            </span><br />
+    <span class="bbwf">(                                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">s_id   int      not null auto_increment,</span><br />
+    &nbsp&nbsp<span class="bbwf">s_name char(50) not null,               </span><br />
+    &nbsp&nbsp<span class="bbwf">s_city char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">s_zip  char(10) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">s_call char(50) not null,               </span><br />    
+    &nbsp&nbsp<span class="bbwf">primary key(s_id)                       </span><br />
+    <span class="bbwf">);                                                </span><br />
+    <br />
+
+    <span>orderitems 資料表插入資料</span><br />
+    <span class="bbwf">insert into suppliers (s_id, s_name, s_city, s_zip, s_call)</span><br />
+    <span class="bbwf">values(101, 'FastFruit Inc.', 'Tianjin', '300000', '48075'),</span><br />
+    <span class="bbwf">(102, 'LT supplies', 'Chongging', '400000', '44333'),</span><br />
+    <span class="bbwf">(103, 'ACME', 'Shanghai', '200000', '90046'),</span><br />
+    <span class="bbwf">(104, 'FNK Inc.', 'Zhongshan', '528437', '11111'),</span><br />
+    <span class="bbwf">(105, 'Good Set', 'Taiyuang', '030000', '22222'),</span><br />
+    <span class="bbwf">(106, 'Just Eat Ours', 'Beijing', '010', '45678'),</span><br />
+    <span class="bbwf">(107, 'DK Inc.', 'Zhengzhou', '450000', '33332');</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">orders</span> 資料表</span><br />
+    <span class="bbwf">create table orders                               </span><br />
+    <span class="bbwf">(                                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">o_num  int      not null auto_increment,</span><br />
+    &nbsp&nbsp<span class="bbwf">o_date datetime not null,               </span><br />
+    &nbsp&nbsp<span class="bbwf">c_id   int      not null,               </span><br />  
+    &nbsp&nbsp<span class="bbwf">primary key(o_num)                      </span><br />
+    <span class="bbwf">);                                                </span><br />
+    <br />
+
+    <span>orders 資料表插入資料</span><br />
+    <span class="bbwf">insert into orders (o_num, o_date, c_id)</span><br />
+    <span class="bbwf">values(30001, '2008-09-01', 10001),</span><br />
+    <span class="bbwf">(30002, '2008-09-12', 10003),</span><br />
+    <span class="bbwf">(30003, '2008-09-30', 10004),</span><br />
+    <span class="bbwf">(30004, '2008-10-03', 10005),</span><br />
+    <span class="bbwf">(30005, '2008-10-08', 10001);</span><br />
+    <br />
+
+
+
+
+
+
+
+    <span class="greenb">分組查詢</span><span class="red"> group by</span><br />
+    <br />
+
+    <span class="greenb">建立分組</span><span class="red"> group by</span><br />
+    <br />
+
+    <span>根據 s_id 對 fruits 表中的資料進行分組</span><br />
+    <span class="bbwf">select s_id, count(*) as total</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">group by s_id;</span><br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>
+            group by 關鍵字通常和<span class="red">集合函數</span>一起使用，例如
+            <span class="red">max()</span> 、
+            <span class="red">min()</span> 、
+            <span class="red">count()</span> 、
+            <span class="red">sum()</span> 、
+            <span class="red">avg()</span> 。
+        </span>
+        <br />
+        <span>select 後的欄位名稱，若沒有使用聚合函數，必須用於 group by，否則會報錯。</span>
+        <br />
+        <span>例如範例中 select <span class="red">s_id</span> ，則必須 group by <span class="red">s_id</span></span>
+        <br />
+    </p>
+
+
+    <span>根據 s_id 對 fruits 表中的資料進行分組，將每個供應商的水果名稱顯示出來</span><br />
+    <span class="bbwf">select s_id, group_concat(f_name) as names</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">group by s_id;</span><br />
+    <br />
+
+
+    <span class="greenb">過濾分組</span><span class="red"> having</span><br />
+    <br />
+
+    <span>根據 s_id 對 fruits 表中的資料進行分組，並顯示水果種類大於1的分組資訊</span><br />
+    <span class="bbwf">select s_id, group_concat(f_name) as names</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">group by s_id</span><br />
+    <span class="bbwf">having count(f_name) > 1;</span><br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>where 和 having 的區別：</span><br />
+        <span>having 用於分組之後進行過濾來選擇<span class="red">分組</span>；</span><br />
+        <span>where 用於分組之前來選擇<span class="red">記錄</span>，且排除的記錄不再包含於分組中。</span><br />
+    </p>
+
+
+    <span class="greenb">統計記錄數量</span><span class="red"> with rollup</span><br />
+    <br />
+
+    <span>根據 s_id 對 fruits 表中的資料進行分組，並顯示記錄的總和數量</span><br />
+    <span class="bbwf">select s_id, count(*) as total</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">group by s_id with rollup;</span><br />
+    <br />
+
+
+    <span class="greenb">多欄位分組</span><br />
+    <br />
+
+    <span>根據 s_id 和 s_name 對 fruits 表中的資料進行分組</span><br />
+    <span class="bbwf">select *</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">group by s_id, f_name;</span><br />
+    <br />
+
+
+    <span class="greenb">group by 和 order by 一起使用</span><br />
+    <br />
+
+    <span>查詢 orderitems 表大於 100 的訂單編號和總訂單價格</span><br />
+    <span class="bbwf">select o_num, sum(quantity * item_price) as orderTotal</span><br />
+    <span class="bbwf">from orderitems</span><br />
+    <span class="bbwf">group by o_num</span><br />
+    <span class="bbwf">having sum(quantity * item_price) > 100;</span><br />
+    <br />
+
+    <span>查詢 orderitems 表大於 100 的訂單編號和總訂單價格，並依總訂單價格排序</span><br />
+    <span class="bbwf">select o_num, sum(quantity * item_price) as orderTotal</span><br />
+    <span class="bbwf">from orderitems</span><br />
+    <span class="bbwf">group by o_num</span><br />
+    <span class="bbwf">having sum(quantity * item_price) > 100</span><br />
+    <span class="bbwf">order by orderTotal;</span><br />
+    <br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>rollup 和 order by 互相排斥，即使用 rollup 時，不能同時使用 order by。</span><br />
+    </p>
+
+
+    <span class="greenb">限制查詢結果的數量</span><span class="red"> limit</span><br />
+    <br />
+
+    <span>查詢 fruits 表中的前 4 筆記錄</span><br />
+    <span class="bbwf">select *</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">limit 4;</span><br />
+    <br />
+
+    <span>查詢 fruits 表中第 5 筆記錄開始的 3 筆記錄</span><br />
+    <span class="bbwf">select *</span><br />
+    <span class="bbwf">from fruits</span><br />
+    <span class="bbwf">limit 4, 3;</span><br />
+    <br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>limit 4, 3 同 limit 4 offset 3</span><br />
+    </p>
+
+
+
+
+
+    <hr />
+
+
+
+
+
+
+
+
+
+
+    <h2 class="center">7.3 - 使用聚合函數查詢</h2>
+    <hr />
+
+
+
+    <h2 class="center">7.4 - 連接查詢</h2>
+
+    <span class="greenb">外連接查詢</span><br />
+    <br />
+
+    <span class="greenb">左連接查詢</span><span class="red"> left join</span><br />
+    <br />
+    
+    <span>在 customers 和 orders 表中，查詢所有客戶，包含沒有訂單的客戶</span><br />
+    <span class="bbwf">select customers.c_id, orders.o_num</span><br />
+    <span class="bbwf">from customers left join orders</span><br />
+    <span class="bbwf">on customers.c_id = orders.c_id;</span><br />
+
+
+    <span class="greenb">右連接查詢</span><span class="red"> right join</span><br />
+    <br />
+    
+    <span>在 customers 和 orders 表中，查詢所有訂單，包含沒有客戶的訂單</span><br />
+    <span class="bbwf">select customers.c_id, orders.o_num</span><br />
+    <span class="bbwf">from customers right join orders</span><br />
+    <span class="bbwf">on customers.c_id = orders.c_id;</span><br />
+
+    <hr />
+
+
+
+    <h2 class="center">7.5 - 子查詢</h2>
+    <span>子查詢指一個查詢敘述巢狀結構在另一個查詢敘述內部的查詢。</span>
+    <span>在 select 子句中先計算子查詢，子查詢結果作為外層另一個查詢的過濾條件，查詢可以是一個表或多個表。</span>
+    <hr />
+
+
+
+    <h2 class="center">7.6 - 合併查詢結果</h2>
+    <hr />
+
+
+    
+    <h2 class="center">7.7 - 為表和欄位取別名</h2>
+    <hr />
+
+
+
+    <h2 class="center">7.8 - 使用正規表示法查詢</h2>
+    <hr />
+
+
+
+    <h2 class="center">7.9 - MySQL 8.0 的新特性1 — group by 不再隱式排序</h2>
+    <span>不再隱式遞增排序</span><br />
+    <br />
+
+    <span>建立 <span class="red">bs1</span> 資料表</span><br />
+    <span class="bbwf">create table bs1          </span><br />
+    <span class="bbwf">(                         </span><br />
+    &nbsp&nbsp<span class="bbwf">bsid    int(11),</span><br />
+    &nbsp&nbsp<span class="bbwf">bscount int(11) </span><br />
+    <span class="bbwf">);                        </span><br />
+    <br />
+
+    <span>bs1 資料表插入資料</span><br />
+    <span class="bbwf">insert into bs1 (bsid, bscount)</span><br />
+    <span class="bbwf">values(101, 5),</span><br />
+    <span class="bbwf">(102, 5),</span><br />
+    <span class="bbwf">(103, 5),</span><br />
+    <span class="bbwf">(105, 0),</span><br />
+    <span class="bbwf">(106, 0),</span><br />
+    <span class="bbwf">(107, 8),</span><br />
+    <span class="bbwf">(108, 8),</span><br />
+    <span class="bbwf">(109, 8);</span><br />
+    <br />
+
+
+    <span>分組查詢</span><br />
+    <span class="bbwf">select count(bsid), bscount</span><br />
+    <span class="bbwf">from bs1</span><br />
+    <span class="bbwf">group by bscount;</span><br />
+    <br />
+
+    <span>自行增加 order by 子句</span><br />
+    <span class="bbwf">select count(bsid), bscount</span><br />
+    <span class="bbwf">from bs1</span><br />
+    <span class="bbwf">group by bscount</span><br />
+    <span class="bbwf">order by bscount;</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">7.10 - MySQL 8.0 的新特性2 — 通用表運算式</h2>
+    <span>通用表運算式(Common Table Expression；<span class="red">CTE</span>)是命名的臨時結果集，作用範圍是目前敘述，可以理解成一個可重複使用的子查詢。</span>
+    
+
+    <span>建立 <span class="red">goods</span> 資料表</span><br />
+    <span class="bbwf">create table goods         </span><br />
+    <span class="bbwf">(                          </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int(11),    </span><br />
+    &nbsp&nbsp<span class="bbwf">name varchar(30),</span><br />
+    &nbsp&nbsp<span class="bbwf">gid  int(11),    </span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(id)  </span><br />
+    <span class="bbwf">);                         </span><br />
+    <br />
+
+    <span>goods 資料表插入資料</span><br />
+    <span class="bbwf">insert into goods (id, name, gid)</span><br />
+    <span class="bbwf">values(1, '商品', 0),</span><br />
+    <span class="bbwf">(2, '水果', 1),</span><br />
+    <span class="bbwf">(3, '蔬菜', 1),</span><br />
+    <span class="bbwf">(4, '蘋果', 2),</span><br />
+    <span class="bbwf">(5, '香蕉', 2),</span><br />
+    <span class="bbwf">(6, '菠菜', 3),</span><br />
+    <span class="bbwf">(7, '蘿蔔', 3);</span><br />
+    <br />
+
+
+    <span>使用『<span class="red">子查詢</span>』</span><br />
+    <span class="bbwf">select g.*, (select name from goods where id = g.gid) as pname</span><br />
+    <span class="bbwf">from goods as g;</span><br />
+    <br />
+
+    <span>使用『<span class="red">CTE</span>』</span><br />
+    <span class="bbwf">with cte as (select * from goods)</span><br />
+    <span class="bbwf">select g.*, (select cte.name from cte where cte.id = g.gid) as gname</span><br />
+    <span class="bbwf">from goods as g;</span><br />
+    <span>CTE 是一個可以重複使用的結果集。CTE的效率比子集合高，因為<span class="red">非遞迴</span>的 CTE 只會查詢一次即可重複使用。</span><br />
+    <br />
+
+
+    <span>CTE 參考其它 CTE</span><br />
+    <span class="bbwf">with cte1 as (select * from goods),</span><br />
+    <span class="bbwf">cte2 as (select g.*, cte1.name as gname from goods as g left join cte1 on g.gid = cte1.id)</span><br />
+    <span class="bbwf">select * from cte2;</span><br />
+    <br />
+
+
+    <span>使用 CTE <span class="red">遞迴</span> 子查詢</span><br />
+
+    <span class="bbwf">with recursive cte(n) as</span><br />
+    <span class="bbwf">(</span><br />
+    <span class="bbwf">select 1</span><br />
+    <span class="bbwf">union all</span><br />
+    <span class="bbwf">select n + 1 from cte where n < 8</span><br />
+    <span class="bbwf">)</span><br />
+    <span class="bbwf">select * from cte;</span><br />
+    <br />
+
+    
+    
+    <span>CTE 遞迴子查詢必須以 with recursive 開頭，包含兩個部份：<span class="red">seed查詢</span> 和 <span class="red">recursive查詢</span>，中間以 union [all] 或 union distinct 連結。 </span><br />
+    <span>seed查詢僅執行一次，以建立初始資料子集。</span>
+    <span>recursive查詢會被重複執行以傳回資料子集，直到運算不會產生任何新行時。</span>
+
+
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>CTE 可以參考其它 CTE ； 子查詢不能參考其它子查詢。</span><br />
+    </p>
+
+
+
+
+
+
+    <hr />
+
+
+
+    <h2 class="center">7.11 - 綜合案例 </h2>
+    <hr />
+
+
+
+    <h2 class="center">7.12 - 專家解惑 </h2>
+    <hr />
+
+
+
+    <h2 class="center">7.13 - 經典習題 </h2>
+    <hr />
+
+
+</body>
+
+</html>

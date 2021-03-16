@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 - 觸發器</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">12 - 觸發器</h1>
+    <span>觸發器(trigger)是由事件觸發，事件包含 <span class="red">insert</span> 、 <span class="red">update</span> 和 <span class="red">delete</span> 描述。</span> 
+    <hr />
+
+
+    <h2 class="center">12.1 - 建立觸發器</h2>
+
+
+    <span>只有一個執行敘述的觸發器</span><br />
+
+    <span>建立 <span class="red">account</span> 資料表</span><br />
+    <span class="bbwf">create table account              </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">acct_num int,           </span><br />
+    &nbsp&nbsp<span class="bbwf">amount   decimal(10, 2),</span><br /> 
+    <span class="bbwf">);                                </span><br />
+    <br />
+
+
+    <span>建立 <span class="red">ins_sum</span> 觸發器</span><br />
+    <span class="bbwf">create trigger ins_sum before insert on account</span><br />
+    <span class="bbwf">for each row set @sum = @sum + NEW.amount;</span><br />
+    <br />
+
+
+    <span class="bbwf">set @sum = 0;</span><br />
+    <br />
+
+    <span>account 資料表插入資料</span><br />
+    <span class="bbwf">insert into account</span><br />
+    <span class="bbwf">values(1, 1.00),</span><br />
+    <span class="bbwf">(2, 2.00);</span><br />
+    <br />
+
+    <span class="bbwf">select @sum;</span><br />
+    <br />
+
+
+    <span>有多個執行敘述的觸發器</span><br />
+
+    <span>建立多個資料表資料表</span><br />
+    <span class="bbwf">create table test1 (a1 int);</span><br />
+    <span class="bbwf">create table test2 (a2 int);</span><br />
+    <span class="bbwf">create table test3 (a3 int not null auto_increment primary key);</span><br />
+    <span class="bbwf">create table test4 (                                 </span><br />
+    <span class="bbwf">(                                                    </span><br />
+    &nbsp&nbsp<span class="bbwf">a4 int not null auto_increment primary key,</span><br />
+    &nbsp&nbsp<span class="bbwf">b4 int default 0                           </span><br /> 
+    <span class="bbwf">);                                                   </span><br />
+    <br />
+
+
+    <span class="bbwf">delimiter //                                   </span><br />
+    <span class="bbwf">                                               </span><br />
+    <span class="bbwf">create trigger testref before insert on test1  </span><br />
+    <span class="bbwf">for each row                                   </span><br />
+    <span class="bbwf">begin                                          </span><br />
+    <span class="bbwf">insert into test2 set a2 = NEW.a1;             </span><br />
+    <span class="bbwf">delete from test3 where a3 = NEW.a1;           </span><br />
+    <span class="bbwf">update test4 set b4 = b4 + 1 where a4 = NEW.a1;</span><br />
+    <span class="bbwf">end //                                         </span><br />
+    <span class="bbwf">                                               </span><br />
+    <span class="bbwf">delimiter ;                                    </span><br />
+
+
+    <span>test4 資料表插入資料</span><br />
+    <span class="bbwf">insert into test4 (a4)</span><br />
+    <span class="bbwf">values(0), (0), (0), (0), (0), (0), (0), (0), (0), (0);</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">12.2 - 檢視觸發器</h2>
+    <hr />
+
+
+
+    <h2 class="center">12.3 - 觸發器的使用</h2>
+    <hr />
+
+
+
+    <h2 class="center">12.4 - 刪除觸發器</h2>
+    <hr />
+
+
+
+    <h2 class="center">12.5 - 綜合案例 — 觸發器的使用</h2>
+
+    <hr />
+
+
+
+    <h2 class="center">12.6 - 專家解惑</h2>
+    <hr />
+
+
+
+    <h2 class="center">12.7 - 經典習題</h2>
+    <hr />
+
+
+
+</body>
+
+</html>

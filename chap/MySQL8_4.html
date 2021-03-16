@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - 資料表的基本操作</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">04 - 資料表的基本操作</h1>
+    <p>資料表是資料庫中最重要的操作物建、最基本的儲存單位</p>
+    <hr />
+
+
+
+    <h2 class="center">4.1 - 建立資料表</h2>
+
+
+    <span class="greenb">建立資料表語法</span><br />
+    <br />
+
+    <span>未選擇資料庫</span><br />
+    <span class="rbwf">ERROR 1046 (3D000): No database selected</span><br />
+    <br />
+
+    <span>建立資料庫</span><br />
+    <span class="bbwf">create database test_db;</span><br />
+    <br />
+
+    <span>選擇資料庫</span><br />
+    <span class="bbwf">use test_db;</span><br />
+    <br />
+
+    <span>建立 tb_emp1 資料表，不區分大小寫</span><br />
+    <span class="bbwf">create table tb_emp1    </span><br />
+    <span class="bbwf">(                       </span><br />
+    &nbsp<span class="bbwf">id     int(11),    </span><br />
+    &nbsp<span class="bbwf">name   varchar(25),</span><br />
+    &nbsp<span class="bbwf">deptId int(11),    </span><br />
+    &nbsp<span class="bbwf">salary float       </span><br />
+    <span class="bbwf">);                      </span><br />
+    <br />
+
+    <span>檢視資料表</span><br />
+    <span class="bbwf">show tables;</span><br />
+    <br />
+
+
+    <span class="greenb">使用主鍵約束</span><span class="red"> primary key</span><br />
+    <br />
+
+    <span class="greenb">單欄位主鍵</span><br />
+
+    <span>建立 tb_emp2 資料表，定義列的同時指定主鍵</span><br />
+    <span class="bbwf">create table tb_emp2            </span><br />
+    <span class="bbwf">(                               </span><br />
+    &nbsp<span class="bbwf">id     int(11) primary key,</span><br />
+    &nbsp<span class="bbwf">name   varchar(25),        </span><br />
+    &nbsp<span class="bbwf">deptId int(11),            </span><br />
+    &nbsp<span class="bbwf">salary float               </span><br />
+    <span class="bbwf">);                              </span><br />
+    <br />
+
+    <span>建立 tb_emp3 資料表，定義完所有列之後指定一個主鍵</span><br />
+    <span class="bbwf">create table tb_emp3    </span><br />
+    <span class="bbwf">(                       </span><br />
+    &nbsp<span class="bbwf">id     int(11),    </span><br />
+    &nbsp<span class="bbwf">name   varchar(25),</span><br />
+    &nbsp<span class="bbwf">deptId int(11),    </span><br />
+    &nbsp<span class="bbwf">salary float,      </span><br />
+    &nbsp<span class="bbwf">primary key(id)    </span><br />
+    <span class="bbwf">);                      </span><br />
+    <br />
+
+    <span class="greenb">多欄位複合主鍵</span><br />
+
+    <span>建立 tb_emp4 資料表，定義完所有列之後指定多個主鍵</span><br />
+    <span class="bbwf">create table tb_emp4          </span><br />
+    <span class="bbwf">(                             </span><br />
+    &nbsp<span class="bbwf">name   varchar(25),      </span><br />
+    &nbsp<span class="bbwf">deptId int(11),          </span><br />
+    &nbsp<span class="bbwf">salary float,            </span><br />
+    &nbsp<span class="bbwf">primary key(name, deptId)</span><br />
+    <span class="bbwf">);                            </span><br />
+    <br />
+
+    <span class="greenb">使用外鍵約束</span><span class="red"> foreign key</span><br />
+    <br />
+
+    <span>建立 tb_dept1 資料表</span><br />
+    <span class="bbwf">create table tb_dept1              </span><br />
+    <span class="bbwf">(                                  </span><br />
+    &nbsp<span class="bbwf">id       int(11) primary key, </span><br />
+    &nbsp<span class="bbwf">name     varchar(22) not null,</span><br />
+    &nbsp<span class="bbwf">location varchar(50)          </span><br />
+    <span class="bbwf">);                                 </span><br />
+    <br />
+
+    <span>
+        建立 <span class="red">tb_emp5</span> 資料表，將其 <span class="red">deptId</span> 作為<span class="red">外鍵</span>連結到 <span class="red">tb_dept1</span> 的<span class="red">主鍵 id</span>
+    </span>
+    <br />
+
+    <span class="bbwf">create table tb_emp5                                               </span><br />
+    <span class="bbwf">(                                                                  </span><br />
+    &nbsp<span class="bbwf">id       int(11) primary key,                                      </span><br />
+    &nbsp<span class="bbwf">name     varchar(25),                                              </span><br />
+    &nbsp<span class="bbwf">deptId   int(11),                                                  </span><br />
+    &nbsp<span class="bbwf">salary   float,                                                    </span><br />
+    &nbsp<span class="bbwf">constraint fk_emp_dept1 foreign key(deptId) references tb_dept1(id)</span><br />
+    <span class="bbwf">);                                                                 </span><br />
+
+    <span>
+        在 tb_emp5 中增加名為 <span class="red">fk_emp_dept1</span> 的<span class="red">外鍵約束</span>，外鍵為 deptId，其依賴於 tb_dept1 的主鍵 id
+    </span>
+    <br /><br />
+
+    <span class="greenb">使用不可為空約束</span><span class="red"> not null</span><br />
+    <br />
+
+    <span class="bbwf">create table tb_emp6               </span><br />
+    <span class="bbwf">(                                  </span><br />
+    &nbsp<span class="bbwf">id       int(11) primary key, </span><br />
+    &nbsp<span class="bbwf">name     varchar(25) not null,</span><br />
+    &nbsp<span class="bbwf">deptId   int(11),             </span><br />
+    &nbsp<span class="bbwf">salary   float                </span><br />
+    <span class="bbwf">);                                 </span><br />
+    <br />
+
+    <span class="greenb">使用唯一性約束</span><span class="red"> unique</span><br />
+    <br />
+
+    <span>建立 tb_dept2 資料表，定義列的同時指定部門為唯一</span><br />
+    <span class="bbwf">create table tb_dept2             </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp<span class="bbwf">id       int(11) primary key,</span><br />
+    &nbsp<span class="bbwf">name     varchar(22) unique, </span><br />
+    &nbsp<span class="bbwf">location varchar(50)         </span><br />
+    <span class="bbwf">);                                </span><br />
+    <br />
+
+    <span>建立 tb_dept3 資料表，定義完所有列之後指定部門為唯一</span><br />
+    <span class="bbwf">create table tb_dept3             </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp<span class="bbwf">id       int(11) primary key,</span><br />
+    &nbsp<span class="bbwf">name     varchar(22),        </span><br />
+    &nbsp<span class="bbwf">location varchar(50),        </span><br />
+    &nbsp<span class="bbwf">constraint sth unique(name)  </span><br />
+    <span class="bbwf">);                                </span><br />
+    <br />
+
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>unique 和 primary key 的區別：</span><br />
+        <span>一個資料表可以有多個欄位為 unique ，但僅能有一個 primary key</span><br />
+        <span>宣告為 primary key 的欄位不允許為空值，但是宣告為 unique 的欄位允許空值存在</span>
+    </p>
+    <br />
+
+    <span class="greenb">使用預設約束</span><span class="red"> default</span><br />
+    <br />
+
+    <span>建立 tb_emp7 資料表，指定部門編號預設為 1111</span><br />
+    <span class="bbwf">create table tb_emp7             </span><br />
+    <span class="bbwf">(                                </span><br />
+    &nbsp<span class="bbwf">id     int(11) primary key, </span><br />
+    &nbsp<span class="bbwf">name   varchar(25),         </span><br />
+    &nbsp<span class="bbwf">deptId int(11) default 1111,</span><br />
+    &nbsp<span class="bbwf">salary float                </span><br />
+    <span class="bbwf">);                               </span><br />
+    <br />
+
+    <span class="greenb">設定表的屬性值自動增加</span><span class="red"> auto_increment</span><br />
+    <br />
+
+    <span>建立 tb_emp8 資料表，指定員工編號自動遞增</span><br />
+    <span class="bbwf">create table tb_emp8                           </span><br />
+    <span class="bbwf">(                                              </span><br />
+    &nbsp<span class="bbwf">id     int(11) primary key auto_increment,</span><br />
+    &nbsp<span class="bbwf">name   varchar(25) not null,              </span><br />
+    &nbsp<span class="bbwf">deptId int(11),                           </span><br />
+    &nbsp<span class="bbwf">salary float                              </span><br />
+    <span class="bbwf">);                                             </span><br />
+    <span><span class="red">auto_increment</span> 重點整理如下</span><br />
+    <span>(1) 預設初值為1，增值為1</span><br />
+    <span>(2) 一個資料表僅能有一個</span><br />
+    <span>(3) 須為 primary key 的一部份</span><br />
+    <span>(4) 欄位可為任何整數資料型態(TinyInt、SmallInt、Int、BigInt等)</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">4.2 - 檢視資料表結構</h2>
+
+
+    <span class="greenb">檢視資料表基本結構敘述</span><span class="red"> describe</span><br />
+    <br />
+
+    <span class="bbwf">describe tb_dept1;</span><br />
+    <span>or</span><br />
+    <span class="bbwf">desc tb_dept1;</span><br />
+    <br />
+
+
+    <span class="greenb">檢視資料表詳細結構敘述</span><span class="red"> show create table</span><br />
+    <br />
+
+    <span class="bbwf">show create table tb_emp1;</span><br />
+    <span>加 <span class="red">\G</span> 參數，顯示結果更加直觀</span><br />
+    <span class="bbwf">show create table tb_emp1 \G;</span><br />
+    <br />
+
+    
+    <hr />
+
+
+
+    <h2 class="center">4.3 - 修改資料表</h2>
+
+
+    <span class="greenb">修改資料表的名稱</span><span class="red"> rename</span><br />
+    <br />
+
+    <span>將資料表 tb_dept3 的名稱改為 tb_deptment3</span><br />
+
+    <span class="bbwf">alter table tb_dept3 rename tb_deptment3;</span><br />
+    <br />
+
+
+    <span class="greenb">修改欄位的資料類型</span><span class="red"> modify</span><br />
+    <br />
+
+    <span>將資料表 tb_dept1 的 name 欄位名稱的資料類型改為 varchar(30)</span><br />
+
+    <span class="bbwf">alter table tb_dept1 modify name varchar(30);</span><br />
+    <br />
+
+
+    <span class="greenb">修改欄位的名稱</span><span class="red"> change</span><br />
+    <br />
+
+    <span>將資料表 tb_dept1 的 location 欄位名稱改為 loc，資料類型保持不變</span><br />
+
+    <span class="bbwf">alter table tb_dept1 change location loc varchar(50);</span><br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>modify 和 change 的區別：</span><br />
+        <span>modify 僅能修改 資料類型</span><br />
+        <span>change 可以修改 欄位名稱 <span class="red">或</span>/<span class="red">和</span> 資料類型</span>    
+    </p>
+    <br />
+
+
+    <span class="greenb">增加欄位</span><span class="red"> add</span><br />
+    <br />
+
+    <span>資料表 tb_dept1 增加一個的 int 類型的欄位 managerId 到欄位最後列</span><br />
+    <span class="bbwf">alter table tb_dept1 add managerId int(10);</span><br />
+    <br />
+
+    <span>資料表 tb_dept1 增加一個<span class="red">不能為空</span>的 varchar(12) 類型的欄位 column1 到欄位最後列</span><br />
+    <span class="bbwf">alter table tb_dept1 add column1 varchar(12) not null;</span><br />
+    <br />
+
+    <span>資料表 tb_dept1 增加一個 int(11) 類型的欄位 column2 到第一列</span><br />
+    <span class="bbwf">alter table tb_dept1 add column2 int(11) first;</span><br />
+    <br />
+
+    <span>資料表 tb_dept1 增加一個 int(11) 類型的欄位 column3 到 name 列後</span><br />
+    <span class="bbwf">alter table tb_dept1 add column3 int(11) after name;</span><br />
+    <br />
+
+
+    <span class="greenb">刪除欄位</span><span class="red"> drop</span><br />
+    <br />
+
+    <span>刪除資料表 tb_dept1 中的 column2 欄位</span><br />
+    <br />
+
+    <span class="bbwf">alter table tb_dept1 drop column2;</span><br />
+    <br />
+
+
+
+    <span class="greenb">修改欄位的排列位置</span><br />
+
+    <span>將資料表 tb_dept1 的 column1 欄位修改到第一個欄位</span><br />
+    <span class="bbwf">alter table tb_dept1 modify column1 varchar(12) first;</span><br />
+    <br />
+
+    <span>將資料表 tb_dept1 的 column1 欄位修改到 loc 欄位後</span><br />
+    <span class="bbwf">alter table tb_dept1 modify column1 varchar(12) after loc;</span><br />
+    <br />
+
+    <br />
+
+
+    <span class="greenb">修改資料表的儲存引擎</span><br />
+    <br />
+
+    <span>檢視系統支援的儲存引擎</span><br />
+    <span class="bbwf">show engines;</span><br />
+    <br />
+
+    <span>將資料表 tb_deptment3 的儲存引擎修改為 MyISAM</span><br />
+    <span class="bbwf">alter table tb_deptment3 engine=MyISAM;</span><br />
+    <br />  
+
+
+    <span class="greenb">刪除表的外鍵約束</span><br />
+    <br />
+
+    <span>刪除資料表 tb_emp9 的外鍵約束 fk_emp_dept</span><br />
+    <span class="bbwf">alter table tb_emp9 drop foreign key fk_emp_dept;</span><br />
+    <br /> 
+
+    <hr />
+
+
+
+    <h2 class="center">4.4 - 刪除資料表</h2>
+ 
+    <span class="bbwf">drop table tb_emp10;</span><br />
+    <span class="rbwf">ERROR 1051 (42S02): Unknown table 'test_db.tb_emp10'</span><br />
+    <br />
+
+    <span>刪除資料表 tb_dept2</span><br />
+    <span class="bbwf">drop table if exists tb_dept2;</span><br />
+    <br /> 
+
+    <hr />
+
+
+
+    <h2 class="center">4.5 - MySQL 8.0 的新特性1 — 預設字元集改為 utf8mb4</h2>
+
+    <span>測試資料庫的預設編碼</span><br />
+    <span class="bbwf">show variables like 'character_set_database';</span><br />
+    
+    <span>測試資料表的預設編碼</span><br />
+    <span class="bbwf">show variables like 'character_set_database';</span><br />
+
+    <hr />
+
+
+
+    <h2 class="center">4.6 - MySQL 8.0 的新特性2 — 自動增加變數的持久化</h2>
+    <hr />
+
+
+
+    <h2 class="center">4.7 - 綜合案例 — 資料表的基本操作</h2>
+    <hr />
+
+
+
+    <h2 class="center">4.8 - 專家解惑</h2>
+    <hr />
+
+    
+
+    <h2 class="center">4.9 - 經典習題</h2>
+    <hr />
+
+
+
+</body>
+
+</html>

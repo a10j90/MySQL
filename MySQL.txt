@@ -1,0 +1,80 @@
+[
+    {
+        "name": "初識 MySQL"
+    },
+    {
+        "name": "MySQL 的安裝與設定"
+    },
+    {
+        "name": "資料庫的基本操作"
+    },
+    {
+        "name": "資料表的基本操作"
+    },
+    {
+        "name": "資料類型和運算子"
+    },
+    {
+        "name": "MySQL 函數"
+    },
+    {
+        "name": "查詢資料"
+    },
+    {
+        "name": "插入、更新與刪除資料"
+    },
+    {
+        "name": "索引"
+    },
+    {
+        "name": "預存程序和函數"
+    },
+    {
+        "name": "視圖"
+    },
+    {
+        "name": "MySQL 觸發器"
+    },
+    {
+        "name": "MySQL 許可權與安全管理"
+    },
+    {
+        "name": "資料備份與恢復"
+    },
+    {
+        "name": "MySQL 記錄檔"
+    },
+    {
+        "name": "效能最佳化"
+    },
+    {
+        "name": "MySQL Replication"
+    },
+    {
+        "name": "MySQL Workbench 的使用"
+    },
+    {
+        "name": "MySQL 管理利器 — MySQL Utilities"
+    },
+    {
+        "name": "讀寫分離的利器 — MySQL Proxy"
+    },
+    {
+        "name": "精通 MySQL 儲存引擎"
+    },
+    {
+        "name": "PHP 操作 MySQL 資料庫"
+    },
+    {
+        "name": "PDO 資料庫抽象類別庫"
+    },
+    {
+        "name": "綜合專案1 — 開發線上購物"
+    },
+    {
+        "name": "綜合專案2 — 討論區管理系統資料庫設計"
+    },
+    {
+        "name": "綜合專案3 — 新聞發佈系統資料庫設計"
+    }
+]

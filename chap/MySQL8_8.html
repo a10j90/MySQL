@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 - 插入、更新和刪除資料</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">08 - 插入、更新和刪除資料</h1>
+    <hr />
+
+
+    <h2 class="center">8.1 - 插入資料</h2>
+    <hr />
+
+    <span>建立 <span class="red">person</span> 資料表</span><br />
+    <span class="bbwf">create table person                             </span><br />
+    <span class="bbwf">(                                               </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int      not null auto_increment,</span><br />
+    &nbsp&nbsp<span class="bbwf">name char(40) not null default '',    </span><br />
+    &nbsp&nbsp<span class="bbwf">age  int      not null default 0,     </span><br />
+    &nbsp&nbsp<span class="bbwf">info char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(id)                       </span><br />
+    <span class="bbwf">);                                              </span><br />
+    <br />
+
+    <span>建立 <span class="red">person_old</span> 資料表</span><br />
+    <span class="bbwf">create table person_old                         </span><br />
+    <span class="bbwf">(                                               </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int      not null auto_increment,</span><br />
+    &nbsp&nbsp<span class="bbwf">name char(40) not null default '',    </span><br />
+    &nbsp&nbsp<span class="bbwf">age  int not  null default 0,         </span><br />
+    &nbsp&nbsp<span class="bbwf">info char(50) null,                   </span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(id)                       </span><br />
+    <span class="bbwf">);                                              </span><br />
+    <br />    
+
+
+    <span>插入資料：<span class="red">自行指定</span> id 編號</span><br />
+    <span class="bbwf">insert into person</span><br />
+    <span class="bbwf">values(1, "Green", 21, "Lawyer");</span><br />
+    <br />
+
+    <span>插入資料：<span class="red">系統賦予</span> id 編號，<span class="red">必須</span>填入<span class="red">其它欄位名稱</span></span><br />
+    <span class="bbwf">insert into person(name, age, info)</span><br />
+    <span class="bbwf">values("Suse", 22, "dancer");</span><br />
+
+
+
+    <hr />
+
+
+
+    <h2 class="center">8.2 - 更新資料</h2>
+
+    <p class="grayb">
+        <span class="red">★</span><span class="bbwf">重點</span><span class="red">★</span><br />
+        <span>確保 update 以 <span class="red">where子句</span> 結束，忽略 where子句，將更新資料表中的所有記錄</span><br />
+    </p>
+
+    <hr />
+
+
+
+    <h2 class="center">8.3 - 刪除資料</h2>
+
+    <p class="grayb">
+        <span class="red">★</span><span class="bbwf">重點</span><span class="red">★</span><br />
+        <span>確保 delete 以 <span class="red">where子句</span> 結束，忽略 where子句，將刪除資料表中的所有記錄</span><br />
+    </p>
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>刪除資料表中的所有記錄，可以使用 <span class="red">truncate table</span> 敘述。</span><br />
+        <span>truncate table 為直接刪除資料表，並重新建立一個。</span><br />
+    </p>
+
+
+    <span>刪除資料：<span class="red">必須</span>填入 <span class="red">from</span> 關鍵字</span><br />
+    <span class="bbwf">delete from person</span><br />
+    <span class="bbwf">where id = 2;</span><br />
+
+    <hr />
+
+
+
+    <h2 class="center">8.4 - 為表增加計算列</h2>
+    <span>某一列的值是透過其它的列計算出來</span><br />
+
+    <span>建立 <span class="red">tb1</span> 資料表</span><br />
+    <span class="bbwf">create table tb1                                        </span><br />
+    <span class="bbwf">(                                                       </span><br />
+    &nbsp&nbsp<span class="bbwf">id int(9) not null auto_increment,            </span><br />
+    &nbsp&nbsp<span class="bbwf">a  int(9),                                    </span><br />
+    &nbsp&nbsp<span class="bbwf">b  int(9),                                    </span><br />
+    &nbsp&nbsp<span class="bbwf">c  int(9) generated always as (a + b) virtual,</span><br />
+    &nbsp&nbsp<span class="bbwf">primary key(id)                               </span><br />
+    <span class="bbwf">);                                                      </span><br />
+    <br />
+
+    <span>tb1 資料表插入資料</span><br />
+    <span class="bbwf">insert into tb1(a, b) values(100, 200);</span><br />
+
+    <span>查詢 tb1 資料表資料</span><br />
+    <span class="bbwf">select * from tb1;</span><br />
+
+    <span>更改 tb1 資料表資料</span><br />
+    <span class="bbwf">update tb1 set a = 500;</span><br />
+
+    <span>查詢 tb1 資料表資料</span><br />
+    <span class="bbwf">select * from tb1;</span><br />
+
+    <hr />
+
+
+
+    <h2 class="center">8.5 - MySQL 8.0 的新特性 — DDL 的最小化 </h2>
+    <span>在 MySQL 8.0 中，InnoDB 表的 DDL 支援交易完整性，即不是 commit 就是 rollback。</span><br />
+
+
+    <hr />
+
+
+
+    <h2 class="center">8.6 - 綜合案例 </h2>
+    <hr />
+
+
+
+    <h2 class="center">8.7 - 專家解惑 </h2>
+    <hr />
+
+
+
+    <h2 class="center">8.8 - 經典習題 </h2>
+    <hr />
+
+
+
+</body>
+
+</html>

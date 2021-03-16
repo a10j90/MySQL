@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 - 資料庫的基本操作</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">03 - 資料庫的基本操作</h1>
+    <p>首先建立資料庫，這是使用 MySQL 各種功能的前提</p>
+    <hr />
+
+
+
+    <h2 class="center">3.1 - 建立資料庫</h2>
+
+    <span>MySQL 指令<span class="red">不區分大小寫</span></span><br />
+    <br />
+
+    <span class="bbwf">show databases;</span><br />
+    <br />
+
+    <span class="bbwf">create database test_db;</span><br />
+    <br />
+
+    <span class="bbwf">show create database test_db;</span><br />
+    <br />
+    
+    <hr />
+
+
+
+    <h2 class="center">3.2 - 刪除資料庫</h2>
+
+    <span class="bbwf">drop database test_db;</span>
+    <br /><br />
+
+    <span class="bbwf">create database test_db;</span><br />
+    <span class="rbwf">ERROR 1049 (42000): Unknown database 'test_db'</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">3.3 - MySQL 8.0 的新特性 — 系統表全部為 InnoDB表</h2>
+    MySQL 8.0 開始，系統表全部換成交易型的 <span class="red">InnoDB表</span>，預設的 MySQL 實例將不包含任何 MyISAM表，除非手動建立 MyISAM表<br />
+    <br />
+
+    <span class="bbwf">select distinct(engine) from information_schema.tables;</span><br />
+    <br />
+    <img src="../chap/img/3/1.png" alt="檢視系統表類型" />
+
+    <hr />
+
+
+
+    <h2 class="center">3.4 - 綜合案例 — 資料庫的建立和刪除</h2>
+
+    <span class="bbwf">步驟 1</span> 建立資料庫 zoo<br />
+    <span class="bbwf">步驟 2</span> 選擇目前資料庫為 zoo，並檢視 zoo 資料庫的資訊<br />
+    <span class="bbwf">步驟 3</span> 刪除資料庫 zoo<br />
+    <br />
+
+    <span class="bbwf">create database zoo;</span><br />
+    <br />
+    
+    <span class="bbwf">use zoo;</span><br />
+    <span class="bbwf">show create database zoo \G;</span><br />
+    <br />
+    
+    <span class="bbwf">drop database zoo;</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">3.5 - 專家解惑</h2>
+    <hr />
+
+
+
+    <h2 class="center">3.6 - 經典習題</h2>
+    <hr />
+
+
+
+</body>
+
+</html>

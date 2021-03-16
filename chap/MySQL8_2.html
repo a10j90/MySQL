@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - MySQL 的安裝與設定</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">02 - MySQL 的安裝與設定</h1>
+    <p>以下介紹兩大平台的 MySQL 安裝：</p>
+    <p>Windows 平台：</p>
+    <p>(1) 二進位版的軟體套件安裝(.mis安裝檔)：提供圖形化的安裝精靈過程</p>
+    <p>(2) 免安裝版的軟體套件安裝(.zip壓縮檔)：直接解壓縮即可使用</p>
+    <p>Linux 平台：使用命令列安裝</p>
+    <hr />
+
+
+
+    <h2 class="center">2.1 - Windows 平台下安裝與設定 MySQL 8.0 </h2>
+    使用圖形化體套件安裝 MySQL 8.0<br />
+
+    <span class="bbwf">(1) 下載 MySQL 安裝檔</span><br />
+
+    <span class="bbwf">步驟 1</span>
+    至 <a href="https://dev.mysql.com/downloads/installer" target="_blank" class="blue">https://dev.mysql.com/downloads/installer</a> 後，點選「Microsoft Windows」平台後，再點選「Download」按鈕
+    <br />
+
+    <img src="../chap/img/2/1.png" alt="MySQL 下載頁面" width="40%" /><br />
+    <br />
+
+
+    <span class="bbwf">步驟 2</span> 點選「Login」按鈕<br />
+    <img src="../chap/img/2/2.png" alt="登入或註冊頁面" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 3</span> 輸入「使用者名稱」和「密碼」後，點選「登入」按鈕<br />
+    <img src="../chap/img/2/3.png" alt="使用者登入頁面" width="20%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 4</span> 點選「Download Now」按鈕，即開始下載<br />
+    <img src="../chap/img/2/4.png" alt="開始下載頁面" width="40%" /><br />
+    <br />
+
+
+    <span class="bbwf">(2) 安裝 MySQL</span><br />
+    
+    <span class="bbwf">步驟 1</span> 雙點擊下載的「mysql-installer-community-8.0.23.0.msi」檔案<br />
+    <img src="../chap/img/2/5.png" alt="MySQL 安裝檔案名稱" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 2</span> 點選「Custom」<br />
+    <img src="../chap/img/2/6.png" alt="安裝類型視窗" width="40%" /><br />
+    <br />
+    
+    安裝類型分為5種：<br />
+    (1) Developer Default (預設安裝類型)<br />
+    (2) Server only (僅作為伺服器)<br />
+    (3) Client only (僅作為用戶端)<br />
+    (4) Full (完整安裝)<br />
+    (5) Custom (自訂安裝類型)<br />
+    <br />
+
+    <span class="bbwf">步驟 3</span> 點選「MySQL Server 8.0.23 - X64」、「MySQL Docymentation 8.0.23 - X64」和「Samples and Examples 8.0.23 - X64」<br />
+    <img src="../chap/img/2/7.png" alt="自訂安裝元件視窗" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 4</span> 點選「Execute」按鈕<br />
+    <img src="../chap/img/2/8.png" alt="準備安裝對話視窗" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 5</span> 安裝完成安裝完成<br />
+    <img src="../chap/img/2/9.png" alt="安裝完成視窗" width="40%" /><br />
+    <br />
+
+
+    <span class="bbwf">(3) 設定 MySQL</span><br />
+    
+    <span class="bbwf">步驟 1</span> (2) 安裝 MySQL 的 步驟 5<br />
+    <img src="../chap/img/2/10.png" alt="產品資訊視窗" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 2</span> 採用「預設」設定<br />
+    <img src="../chap/img/2/11.png" alt="伺服器類型設定視窗" width="40%" /><br />
+    <br />
+
+    <span>預設 Config Type 為 「Development Computer」；</span><br />
+    <span>預設 Port 為 「<span class="red">3306</span>」。</span><br />
+    
+    其中，「Config Type」選項用於設定伺服器類型<br />
+    (1)
+    (2)
+    (3)<br />
+    <br />
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        建議初學者點選「Development Machine」選項，使佔用系統的資源比較少
+    </p>
+    <br />
+
+    <span class="bbwf">步驟 3</span> 點選第二個選項「Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)」<br />
+    <img src="../chap/img/2/12.png" alt="伺服器授權方式" width="40%" /><br />
+    <br />
+
+    第一個選項涵義是 MySQL 8.0 的新授權方式，採用 SHA256 基礎的密碼加密方法。<br />
+    第二個選項涵義是 MySQL 5.x 的舊授權方式。<br />
+    <br />
+
+    <span class="bbwf">步驟 4</span> 輸入兩次相同的登入密碼<br />
+    <img src="../chap/img/2/13.png" alt="設定伺服器的登入密碼" width="40%" /><br />
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        系統預設的使用者名稱為 root ，如果想要增加使用者，可以點選「Add User」按鈕
+    </p>
+    <br />
+
+    <span class="bbwf">步驟 5</span> 設定伺服器名稱為「MySQL」<br />
+    <img src="../chap/img/2/14.png" alt="設定伺服器的名稱" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 6</span> 確認伺服器的設定<br />
+    <img src="../chap/img/2/15.png" alt="確定設定伺服器" width="40%" /><br />
+    <br />
+
+
+    <span class="bbwf">步驟 7</span> 完成伺服器的設定<br />
+    <img src="../chap/img/2/16.png" alt="完成設定伺服器" width="40%" /><br />
+    <br />
+
+    <span class="bbwf">步驟 8</span> 開啟「工作管理員」，確認 MySQL 已啟動<br />
+    <img src="../chap/img/2/17.png" alt="工作管理員視窗" width="40%" /><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">2.2 - 啟動服務並登入 MySQL 資料庫 </h2>
+    <hr />
+
+
+
+    <h2 class="center">2.3 - MySQL 常用圖形管理工具 </h2>
+    <hr />
+
+
+
+    <h2 class="center">2.4 - Linux 平台下安裝與設定 MySQL 8.0 </h2>
+    <hr />
+
+
+
+    <h2 class="center">2.5 - 專家解惑 </h2>
+    <hr />
+
+
+
+    <h2 class="center">2.6 - 經典習題 </h2>
+    <hr />
+
+
+
+</body>
+
+</html>

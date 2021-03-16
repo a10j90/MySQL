@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09 - 索引</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">09 - 索引</h1>
+    <p>索引用於快速找出在某欄中有一特定值的列</p>
+    <hr />
+
+
+
+    <h2 class="center">9.1 - 索引簡介</h2>
+
+
+
+
+
+
+    <span>MySQL 的索引分為以下幾類</span><br />
+    <span>(1) 一般索引和唯一索引</span><br />
+    <span>(2) 單欄索引和複合索引</span><br />
+    <span>(3) 全文索引</span><br />
+    <span>(4) 空間索引</span><br />
+    <hr />
+
+
+
+    <h2 class="center">9.2 - 建立資料表同時建立索引</h2>
+
+
+    <span class="greenb">一般索引</span><br />
+    <br />
+
+    <span>建立 <span class="red">book</span> 資料表</span><br />
+    <span class="bbwf">create table book                                </span><br />
+    <span class="bbwf">(                                                </span><br />
+    &nbsp&nbsp<span class="bbwf">bookid           int          not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">bookname         varchar(255) not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">authors          varchar(255) not null,</span><br />
+    &nbsp&nbsp<span class="bbwf">info             varchar(255) null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">comment          varchar(255) null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">year_publication year         not null,</span><br />  
+    &nbsp&nbsp<span class="bbwf">index(year_publication)                </span><br />
+    <span class="bbwf">);                                               </span><br />
+    <br />
+
+
+    <span>檢視 book 資料表</span><br />
+    <span class="bbwf">show create table book \G;</span><br />
+
+    <span>MySQL 自動為 year_publication 欄位增加名為 year_publication 的索引</span><br />
+    <span class="bbwf">KEY `year_publication` (`year_publication`)</span><br />
+    <br />
+
+
+    <span>檢視索引是否正在使用</span><br />
+    <span class="bbwf">explain select * from book where year_publication = 1990 \G;</span><br />
+
+    <span>可以看到，possible_keys 和 key 都為 year_publication</span><br />
+    <span class="bbwf">possible_keys: year_publication</span><br />
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <span class="bbwf">key: year_publication</span><br />
+    <br />
+
+
+    <span class="greenb">唯一索引</span><br />
+    <br />
+
+    
+    <span>建立 <span class="red">t1</span> 資料表，在 id 欄位上使用 <span class="red">unique</span> 關鍵字建立唯一索引</span><br />
+    <span class="bbwf">create table t1                   </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int      not null, </span><br />
+    &nbsp&nbsp<span class="bbwf">name char(30) not null, </span><br />
+    &nbsp&nbsp<span class="bbwf">unique index UniqIdx(id)</span><br />
+    <span class="bbwf">);                                </span><br />
+    <br />
+
+    <span>檢視 t1 資料表</span><br />
+    <span class="bbwf">show create table t1 \G;</span><br />
+
+    <span>id 欄位上已建立名為 UniqIdx 的唯一索引</span><br />
+    <span class="bbwf">UNIQUE KEY `UniqIdx` (`id`)</span><br />
+    <br />
+
+    
+    <span class="greenb">單欄索引</span><br />
+    <br />
+
+    <span>建立 <span class="red">t2</span> 資料表，在 name 欄位上建立單欄索引</span><br />
+    <span class="bbwf">create table t2                    </span><br />
+    <span class="bbwf">(                                  </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int      not null,  </span><br />
+    &nbsp&nbsp<span class="bbwf">name char(50) null,      </span><br />
+    &nbsp&nbsp<span class="bbwf">index SingleIdx(name(20))</span><br />
+    <span class="bbwf">);                                 </span><br />
+    <br />
+
+    <span>檢視 t2 資料表</span><br />
+    <span class="bbwf">show create table t2 \G;</span><br />
+
+    <span>name 欄位上已建立名為 SingleIdx 、長度為20的單列索引</span><br />
+    <span class="bbwf">KEY `SingleIdx` (`name`(20))</span><br />
+    <br />
+
+
+
+    <span class="greenb">複合索引</span><br />
+    <br />
+
+    <span>建立 <span class="red">t3</span> 資料表，在 name 欄位上建立複合索引</span><br />
+    <span class="bbwf">create table t3                        </span><br />
+    <span class="bbwf">(                                      </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int(11)      not null,  </span><br />
+    &nbsp&nbsp<span class="bbwf">name char(50)     not null,  </span><br />
+    &nbsp&nbsp<span class="bbwf">age  int(11)      not null,  </span><br />
+    &nbsp&nbsp<span class="bbwf">info varchar(255),           </span><br />
+    &nbsp&nbsp<span class="bbwf">index MultiIdx(id, name, age)</span><br />
+    <span class="bbwf">);                                     </span><br />
+    <span>欄位須依順序放</span><br />
+    <br />
+
+    <span>檢視 t3 資料表</span><br />
+    <span class="bbwf">show create table t3 \G;</span><br />
+
+    <span>id, name 和 age 欄位上已建立名為 MultiIdx 的複合索引，</span><br />
+    <span>該索引可搜尋 <span class="red">(id,name,age)</span>、<span class="red">(id,name)</span> 或 <span class="red">id</span> 欄位組合</span><br />
+    <span class="bbwf">KEY `MultiIdx` (`id`,`name`,`age`)</span><br />
+    <br />
+
+
+    <span>查詢 id 和 name 欄位，使用 explian 檢視索引的使用情況</span><br />
+    <span class="bbwf">explain select * from t3 where id = 1 and name = 'joe' \G;</span><br />
+
+    <span>可以看到，possible_keys 和 key 都為 MultiIdx</span><br />
+    <span class="bbwf">possible_keys: MultiIdx</span><br />
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <span class="bbwf">key: MultiIdx</span><br />
+    <br />
+
+
+    <span>查詢 name 和 age 欄位，使用 explian 檢視索引的使用情況</span><br />
+    <span class="bbwf">explain select * from t3 where name = 'joe' and age = 22 \G;</span><br />
+
+    <span>可以看到，possible_keys 和 key 都為 NULL</span><br />
+    <span class="bbwf">possible_keys: NULL</span><br />
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <span class="bbwf">key: NULL</span><br />
+    <br />
+
+
+
+
+    <span class="greenb">全文索引</span><br />
+    <br />
+
+    <span>只有 <span class="red">MyISAM 儲存引擎</span> 支援全文索引。</span><br />
+    <span>只有 char 、 varchar 和 text 資料型態可以建立。</span><br />
+    <span>只對整列進行建立，不支援局部索引。</span><br />
+    <br />
+
+
+    <span>建立 <span class="red">t4</span> 資料表，在 info 欄位上使用 <span class="red">fulltext</span> 關鍵字建立全文索引</span><br />
+    <span class="bbwf">create table t4                          </span><br />
+    <span class="bbwf">(                                        </span><br />
+    &nbsp&nbsp<span class="bbwf">id   int          not null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">name char(30)     not null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">age  int          not null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">info varchar(255),             </span><br />
+    &nbsp&nbsp<span class="bbwf">fulltext index FullTxtIdx(info)</span><br />
+    <span class="bbwf">) engine = MyISAM;                       </span><br />
+    <br />
+
+ 
+    <span>檢視 t4 資料表</span><br />
+    <span class="bbwf">show create table t4 \G;</span><br />
+
+    <span>info 欄位上已建立名為 FullTxtIdx 的全文索引</span><br />
+
+
+
+    <p class="grayb">
+        <span class="bbwf">注意</span><br />
+        <span>MySQL 8.0 預設儲存引擎為 InnoDB ，因此在建立資料表時須修改儲存引擎為 MyISAM ，否則會出錯</span><br />
+    </p>
+
+    <p class="grayb">
+        <span class="bbwf">提示</span><br />
+        <span>全文索引適合大類型資料集，小的資料集作用比較小</span><br />
+    </p>
+
+
+    <span class="greenb">空間索引</span><br />
+    <br />
+
+    <span>空間索引必須在 <span class="red">MyISAM 儲存引擎</span> 的資料表中建立，且欄位不可為空約束。</span><br />
+    <br />
+
+    <span>建立 <span class="red">t5</span> 資料表，在空間類型 geometry 的 g 欄位上使用 <span class="red">spatial</span> 關鍵字建立空間索引</span><br />
+    <span class="bbwf">create table t5                   </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">g geometry not null,    </span><br />
+    &nbsp&nbsp<span class="bbwf">spatial index SpatIdx(g)</span><br />
+    <span class="bbwf">) engine = MyISAM;                </span><br />
+    <br />
+
+
+    <span>檢視 t5 資料表</span><br />
+    <span class="bbwf">show create table t5 \G;</span><br />
+
+    <span>g 欄位上已建立名為 SpatIdx 的空間類型</span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">9.3 - 在已存在的資料表上建立索引</h2>
+
+    <span>在已存在的資料表上建立索引，有2種方式</span><br />
+    <br />
+
+    <table>
+        <tr class="center">
+            <td>
+
+            </td>
+            <td>
+                <span>(1) </span>
+                <span class="greenb">使用 alter table</span>
+            </td>
+            <td>
+                <span>(2) </span>
+                <span class="greenb">使用 create index</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>在 bookname 的欄位上</span><br />
+                <span>建立索引</span><br />
+            </td>
+            <td>
+                <span>alter table book</span><br />
+                <span>add index BkNameIdx( bookname(30) );</span><br />
+            </td>
+            <td>
+                <span>create index BkNameIdx</span><br />
+                <span>on book( bookname(30) );</span><br />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>在 bookid 的欄位上</span><br />
+                <span>建立<span class="greenb">唯一索引</span></span><br />
+            </td>
+            <td>
+                <span>alter table book</span><br />
+                <span>add unique index UniqIdIdx ( bookid );</span><br />
+
+            </td>
+            <td>
+                <span>create unique index UniqIdIdx</span><br />
+                <span>on book( bookid );</span><br />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span>在 comment 的欄位上</span><br />
+                <span>建立<span class="greenb">單欄索引</span></span><br />
+            </td>
+            <td>
+                <span>alter table book</span><br />
+                <span>add index BkCmtIdx ( comment(50) );</span><br />
+            </td>
+            <td>
+                <span>create index BkCmtIdx</span><br />
+                <span>on book( comment(50) );</span><br /> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>在 authors 和 info 的欄位上</span><br />
+                <span>建立<span class="greenb">複合索引</span></span><br />
+            </td>
+            <td>
+                <span>alter table book</span><br />
+                <span>add index BkAuAndInfoIdx ( authors(30), info(50) );</span><br />
+            </td>
+            <td>
+                <span>create index BkAuAndInfoIdx</span><br />
+                <span>on book( authors(30), info(50) );</span><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>在 info 的欄位上</span><br />
+                <span>建立<span class="greenb">全文索引</span></span><br />
+            </td>
+            <td>
+                <span>alter table t6</span><br />
+                <span>add fulltext index infoFTIdx ( info );</span><br />
+            </td>
+            <td>
+                <span>create fulltext index infoFTIdx</span><br />
+                <span>on t6( info );</span><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>在 g 的欄位上</span><br />
+                <span>建立<span class="greenb">空間索引</span></span><br />
+            </td>
+            <td>
+                <span>alter table t7</span><br />
+                <span>add spatial index spatIdx( g );</span><br />
+            </td>
+            <td>
+                <span>create spatial index spatIdx</span><br />
+                <span>on t7( g );</span><br />
+            </td>
+        </tr>
+    </table>
+    <br />
+
+    
+
+
+    <span><span class="red">alter table</span> 敘述 和 <span class="red">create index</span> 敘述 功能一樣，只是關鍵字不同。不影響查詢</span><br />
+
+    <hr />
+
+
+
+
+    <h2 class="center">9.4 - 刪除索引</h2>
+
+    <span>刪除索引，有2種方式</span><br />
+    <br />
+    <table>
+        <tr class="center">
+            <td></td>
+            <td>
+                <span>(1) </span>
+                <span class="greenb">使用 alter table</span>
+            </td>
+            <td>
+                <span>(2) </span>
+                <span class="greenb">使用 drop index</span>
+            </td>
+        </tr>
+        <tr>
+            <td>刪除 UniqIdIdx 索引</td>
+            <td>
+                <span>alter table book drop index UniqIdIdx;</span><br />
+            </td>
+            <td>
+                <span>drop index UniqIdIdx on book;</span><br />
+            </td>
+        </tr>
+        <tr>
+            <td>刪除 BkAuAndInfoIdx 索引</td>
+            <td>
+                <span>alter table book drop index BkAuAndInfoIdx;</span><br />
+            </td>
+            <td>
+                <span>drop index BkAuAndInfoIdx on book;</span><br />
+            </td>
+        </tr>   
+    </table>
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">9.5 - MySQL 8.0 的新特性1 — 支援降冪索引</h2>
+
+    <span>建立 <span class="red">ts1</span> 資料表，</span><br />
+    <span class="bbwf">create table ts1                  </span><br />
+    <span class="bbwf">(                                 </span><br />
+    &nbsp&nbsp<span class="bbwf">a int,                  </span><br />
+    &nbsp&nbsp<span class="bbwf">b int,                  </span><br />
+    &nbsp&nbsp<span class="bbwf">index idx_a_b(a, b desc)</span><br />
+    <span class="bbwf">);                                </span><br />
+    <br />
+
+
+    <hr />
+
+
+
+    <h2 class="center">9.6 - MySQL 8.0 的新特性2 — 統計長條圖</h2>
+
+    <span>建立 <span class="red">production</span> 資料表，</span><br />
+    <span class="bbwf">create table production</span><br />
+    <span class="bbwf">(                      </span><br />
+    &nbsp&nbsp<span class="bbwf">a     int,   </span><br />
+    &nbsp&nbsp<span class="bbwf">tm    time,  </span><br />
+    &nbsp&nbsp<span class="bbwf">count int    </span><br />
+    <span class="bbwf">);                     </span><br />
+    <br />
+
+    <hr />
+
+
+
+    <h2 class="center">9.7 - 綜合案例 — 建立索引</h2>
+    <hr />
+
+
+
+    <h2 class="center">9.8 - 專家解惑 </h2>
+    <hr />
+
+    
+
+    <h2 class="center">9.9 - 經典習題 </h2>
+    <hr />
+
+
+
+</body>
+
+</html>

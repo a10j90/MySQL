@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - 初識 MySQL</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+
+    <a href="../MySQL8.html" target="_blank" class="blue">目錄</a>
+    <h1 class="center">01 - 初識 MySQL</h1>
+    <p>MySQL 是由 MySQL AB 公司開發、發佈並維護的一個跨平台的、開放原始碼的關聯式資料庫管理系統(DBMS)。</p>
+
+    <hr />
+
+
+
+
+    <h2 class="center">1.1 - 資料庫基礎</h2>
+
+    資料庫特點：<br />
+    (1) 實現資料共用，減少資料容錯<br />
+    (2) 採用特定的資料類型<br />
+    (3) 具有較高的資料獨立性<br />
+    (4) 具有統一的資料控制功能<br />
+
+    <hr />
+
+
+
+    <h2 class="center">1.2 - 資料庫技術組成</h2>
+
+    資料庫系統由3個主要部份：<br />
+    (1) 資料庫(Database；DB)：儲存資料的地方<br />
+    (2) 資料庫管理系統(Database Management System；<span class="red">DBMS</span>)：管理資料庫的軟體<br />
+    (3) 應用程式(Application)：加強資料庫系統的處理能力<br />
+    <br />
+
+    SQL語言包含4個部份：<br />
+    (1) 資料定義語言(Data Definition Language；<span class="red">DDL</span>)： Create 、 Alter 、 Drop 等<br />
+    (2) 資料操作語言(Data Manipulation Language；<span class="red">DML</span>)： Insert 、 Update 、 Delete 等<br />
+    (3) 資料查詢語言(Data Query Language；<span class="red">DQL</span>)： <span class="red">Select</span><br />
+    (4) 資料控制語言(Data Control Language；<span class="red">DCL</span>)： Grant 、 Revoke 、 Commit 、 Rollback 等<br />
+    <br />
+
+    資料庫存取介面：<br />
+    (1) ODBC
+    (2) JDBC
+    (3) ADO.NET
+    (4) PDO
+    <hr />
+
+
+
+    <h2 class="center">1.3 - 什麼是 MySQL</h2>
+
+    <span>MySQL的命名機制由 3 個數字和 1 個副檔名組成，例如MySQL-8.0.13版本</span><br />
+    <span>(1) 第 1 個數字 (8) 是<span class="red">主版本編號</span>，描述檔案格式</span>
+    <span>(2) 第 2 個數字 (0) 是<span class="red">發佈等級</span>，主版本編號和發行等級組成發行序號</span>
+    <span>(3) 第 2 個數字 (13) 是此發佈系列的<span class="red">版本編號</span>，隨每次新發佈版本遞增</span>
+
+    <span class="greenb">資料庫市佔率</span><span>(點圖可連結)</span><br />
+
+    <a href="https://www.finereport.com/tw/data-analysis/2019-sep-database-list.html" target="_blank">
+        <img src="img/1/1.png" alt="資料庫市佔率" width="800px" />
+    </a>
+    <br />
+
+    <span>更多排名請查詢</span>
+    <a href="https://db-engines.com/en/ranking" target="_blank" class="blue">https://db-engines.com/en/ranking</a>
+    <br /><br />
+
+
+    <span class="greenb">資料庫薪水</span><span>(點圖可連結)</span><br />
+
+    <a href="http://onlineopenacademy.com/database-administrator/" target="_blank">
+        <img src="img/1/2.png" alt="資料庫薪水" width="800px" />
+    </a>
+    <br />
+
+
+    <span class="greenb">資料庫職缺</span><span>(點圖可連結)</span><br />
+
+    <a href="https://www.104.com.tw/jobs/search/?ro=0&kwop=7&keyword=%E8%B3%87%E6%96%99%E5%BA%AB&order=15&asc=0&page=1&mode=s&jobsource=2018indexpoc"
+        target="_blank">
+        <img src="img/1/3.png" alt="資料庫職缺" width="800px" />
+    </a>
+    <br /><br />
+
+
+
+
+    <div>
+        <div class="center">
+            <a href="https://www.mysql.com" target="_blank">
+                <img src="img/1/MySQL.svg" alt="MySQL" width="200px" />
+            </a>
+            vs.
+            <a href="https://mariadb.org" target="_blank">
+                <img src="img/1/MariaDB.svg" alt="MariaDB" width="250px" />
+            </a>
+        </div>
+
+        <div class="center">
+            <a href="https://zh.wikipedia.org/wiki/MySQL" target="_blank" class="anchor_NoUnderLine">MySQL</a>
+            姊妹資料庫 -
+            <a href="https://zh.wikipedia.org/wiki/MariaDB" target="_blank" class="anchor_NoUnderLine">MariaDB</a>
+        </div>
+    </div>
+    <br />
+
+
+
+    <hr />
+
+
+
+
+
+
+
+
+    <h2 class="center">1.4 - MySQL 工具</h2>
+    <hr />
+
+
+
+    <h2 class="center">1.5 - MySQL 8.0 的新特性簡述</h2>
+
+    <span>和 MySQL 5.7 相比，MySQL 8.0 的新特性主要包含以下幾個方面。</span>
+
+
+    <h3>1. 資料字典</h3>
+
+
+    <h3>2. 最小資料定義敘述</h3>
+    <span>支援最小資料定義(DDL)敘述。</span><span class="red">(參考8.5)</span>
+
+
+    <h3>3. 安全和帳戶管理</h3>
+    <span>MySQL 8.0 透過以下功能增強資料庫的安全性，並在帳戶管理中實現更高的 DBA 靈活性。</span>
+    <span>(1) MySQL 資料庫的授權表統一為 InnoDB (交易性)表。</span><span class="red">(參考3.3)</span>
+
+
+    <h3>4. 資源管理</h3>
+
+
+    <h3>5. InnoDB 增強功能</h3>
+    <span>MySQL 8.0 透過以下增強 InnoDB 的功能。</span><br />
+    <span>(1) 將自動增加主鍵的計數器持久化到<span class="red">重做記錄檔</span>中。每次計數器發生改變，都會將其寫入重做記錄檔中。如果資料庫重新啟動，InnoDB
+        會根據重做記錄檔中的資訊來初始化計數器的記憶體值。</span><span class="red">(參考4.5)</span>
+
+
+    <h3>6. 字元集支援</h3>
+    <span>預設字元集改為<span class="red">utf8mb4</span>。utf8mb4 有幾個新的排序規則，其中包含 <span
+            class="red">utf8mb4_0900_as_cs</span>。</span><span class="red">(參考4.6)</span>
+
+
+    <h3>7. 增強 JSON 功能</h3>
+
+
+    <h3>8. 資料類型的支援</h3>
+
+
+    <h3>9. 查詢最佳化</h3>
+    <span>MySQL 8.0 透過以下最佳化查詢的功能。</span><br />
+    <span>(1) 開始支援</span><span class="red">不可見索引</span>。</span><span class="red">(參考)</span>
+    <span>(2) 開始支援</span><span class="red">降冪索引</span>。</span><span class="red">(參考9.4)</span>
+
+
+    <h3>10. 通用表運算式</h3>
+    <span>支援<span class="red">非遞迴</span>和<span class="red">遞迴</span>的通用表運算式(CTE)，其允許使用命名的臨時結果集。</span><span
+        class="red">(參考7.10)</span>
+
+
+    <h3>11. 視窗函數</h3>
+
+
+    <h3>12. 統計長條圖</h3>
+    <span>MySQL 8.0 實現了統計長條圖。</span><span class="red">(參考9.5)</span>
+
+
+    <h3>13. 備份鎖</h3>
+
+
+
+    <p><a href="https://dev.mysql.com/doc/relnotes/mysql/8.0/en/" target="_blank" class="blue">MySQL 8.0 Release
+            Notes</a></p>
+    <p>● 2016-09-12：開始研發(8.0.0)</p>
+    <p>● 2017-09-21：釋出第一個RC版本(8.0.3)</p>
+    <p>● 2018-04-19：發佈可以正式安裝的版本(8.0.11)</p>
+    <hr />
+
+
+
+    <h2 class="center">1.6 - 如何學習 MySQL </h2>
+    <hr />
+
+
+
+</body>
+
+</html>

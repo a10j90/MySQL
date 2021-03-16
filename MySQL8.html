@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL 8.0</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+    <h1 class="center">齊晃 - MySQL 8.0 教學網</h1>
+    <h3 class="center">適合 → DB初學者、DB開發者、DB管理者</h3>
+    <h5 class="center">避免自己以後金魚腦忘記</h5>
+    <!-- <h5 class="center">主要參考書籍 ： 王英英 - 必須精通 MySQL 最新版：最成功應用範例全書</h5> -->
+
+    <div id="app">
+        <div v-for="(item, index) in arrMySQL">
+            <h3>
+                {{index + 1}} - <a :href="`chap/MySQL8_${index + 1}.html`" target="_blank"
+                    class="blue">{{item.name}}</a>
+            </h3>
+            <!-- <h3>1 - <a href="chap/MySQL8_1.html" target="_blank" class="blue">初識 MySQL</a></h3> -->
+        </div>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return { // return to template
+                    arrMySQL: [],
+                };
+            },
+            mounted() {
+                // default of content-type is JSON
+                axios.get('./MySQL.json').then(res => {
+                    // console.log(res.data);
+                    this.arrMySQL = res.data;
+                });
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+.accent {
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+
+
+
+.anchor_NoUnderLine {
+    text-decoration: none;
+    color: rgb(0, 0, 255);
+}
+
+
+.greenb {
+    background-color: rgb(0, 255, 0);
+}
+.bbwf {
+    background-color: black;
+    color: white;
+}
+.rbwf {
+    background-color: red;
+    color: white;
+}
+.grayb {
+    background-color: rgb(200, 200, 200);
+}
+
+
+
+
+
+
+
+.red {
+    color: rgb(255, 0, 0);
+}
+.green {
+    color: rgb(0, 255, 0);
+}
+.blue {
+    color: rgb(0, 0, 255);
+}
+
+.center {
+    text-align:center;
+}
+
+
+
+th, td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width:100%;
+}
